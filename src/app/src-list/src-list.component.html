@@ -1,0 +1,6 @@
+<select class="styled-inp" [disabled]="isDisabled" data-name="{{currentSrc.name}}" data-id="{{currentSrc.id}}">
+  <option
+    *ngFor="let src of srcList; let i = index"
+    value={{src.id}}
+  >{{src.name}}</option>
+</select>

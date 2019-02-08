@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    padding: 20px 0;
+}
+.header {    
+    &__title {
+        margin: 0;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 700;
+    }
+} 

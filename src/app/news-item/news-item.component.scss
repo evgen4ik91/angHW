@@ -1,0 +1,24 @@
+:host {
+    display: block;
+    margin-bottom: 10px;
+    background-color: #fff;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.article {
+    &__img-col {
+        max-width: 30%;
+        min-width: 30%;
+    }
+    &__content-col {
+        flex-grow: 1;
+        &:last-child {
+            padding-right: 30px;
+        }
+    }
+    &__img {
+        display: block;
+        width: 100%;
+    }
+}

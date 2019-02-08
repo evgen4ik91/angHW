@@ -1,3 +1,9 @@
-<p>
-  news-list works!
-</p>
+<div class="container">
+  <div class="news-list__container">
+    <app-news-item
+      *ngFor="let article of newsList; let i = index"
+      [article]="article"
+    ></app-news-item>
+  </div>
+  <button class="news-list__more-btn" *ngIf="allNewsShowed">More</button>
+</div>
