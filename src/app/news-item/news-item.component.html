@@ -1,7 +1,7 @@
 <div class="row nowrap">
   <div class="col article__img-col">
     <a href="{{this.article.url}}">
-      <img class="article__img" src="{{this.article.urlToImage}}" alt="angNEWS"/>
+      <img class="article__img" src="{{this.article.urlToImage}}" alt="angNEWS" *ngIf="this.article.urlToImage"/>
     </a>
   </div>
   <div class="col article__content-col">

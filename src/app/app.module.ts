@@ -12,6 +12,7 @@ import { FilterNewsComponent } from './filter-news/filter-news.component';
 import { LocalNewsSelectorComponent } from './local-news-selector/local-news-selector.component';
 import { AddArticleComponent } from './add-article/add-article.component';
 import { NewsItemComponent } from './news-item/news-item.component';
+import { MoreBtnComponent } from './more-btn/more-btn.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NewsItemComponent } from './news-item/news-item.component';
     FilterNewsComponent,
     LocalNewsSelectorComponent,
     AddArticleComponent,
-    NewsItemComponent
+    NewsItemComponent,
+    MoreBtnComponent
   ],
   imports: [
     BrowserModule,

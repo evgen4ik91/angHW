@@ -1,0 +1,10 @@
+:host {
+	display: block;
+}
+.news-list {
+    &__more-btn {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+    }
+}

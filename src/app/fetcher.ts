@@ -6,8 +6,8 @@ export class Fetcher {
 		this.type = type;
 	}
 
-	queryConstructor(src: string) {		
-		return `https://newsapi.org/v2/${this.type === 'src' ? 'sources?' : `top-headlines?sources=${src}&`}apiKey=${this.apiKey}`;
+	queryConstructor(srcID: string) {		
+		return `https://newsapi.org/v2/${this.type === 'src' ? 'sources?' : `top-headlines?sources=${srcID}&`}apiKey=${this.apiKey}`;
 	}
 
 	async fetchData(src: string) {

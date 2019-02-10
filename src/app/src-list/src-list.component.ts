@@ -1,36 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Fetcher } from '../fetcher';
+import { NewsSourceService } from "./src-list.service";
 
 @Component({
   selector: 'app-src-list',
   templateUrl: './src-list.component.html',
-  styleUrls: ['./src-list.component.scss']
+  styleUrls: ['./src-list.component.scss'],
+  providers: [NewsSourceService]
 })
 
 export class SrcListComponent implements OnInit {
   private fetcher: any;
-  public currentSrc: any = {id: 'all', name: 'All sources'};
   public srcList: any;
   public isDisabled: boolean = false;
 
-  constructor() {
+  constructor(private srcService: NewsSourceService) {
     this.fetcher = new Fetcher('src');
   }
 
-  setCurrentSrc(e) {
-    let el = e.target;
-    console.log(el);
-    this.currentSrc = {
-      id: el.getAttribute('value'),
-      name: el.innerText,
-    }
-    console.log(this.currentSrc);
+  setCurrentSrc($event) {
+    this.srcService.changeNewsSource(this.srcList[$event ? $event.target.selectedIndex : 0]);
   }
   
   ngOnInit() {
     this.fetcher.fetchData().then(srcList => {
       this.srcList = srcList;
-      this.currentSrc = srcList[0];
+      this.setCurrentSrc(null);
     });
   }
 }
