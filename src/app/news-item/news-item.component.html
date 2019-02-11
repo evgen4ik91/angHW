@@ -1,11 +1,11 @@
 <div class="row nowrap">
   <div class="col article__img-col">
-    <a href="{{this.article.url}}">
+    <a href="/article/{{articleIndex}}">
       <img class="article__img" src="{{this.article.urlToImage}}" alt="angNEWS" *ngIf="this.article.urlToImage"/>
     </a>
   </div>
   <div class="col article__content-col">
-    <h4 class="article__title"><a href="{{this.article.url}}">{{this.article.title}}</a></h4>
+    <h4 class="article__title"><a href="/article/{{articleIndex}}">{{this.article.title}}</a></h4>
     <p class="article__short-text">{{this.article.description}}</p>
     <p class="article__date">{{date}}</p>
   </div>

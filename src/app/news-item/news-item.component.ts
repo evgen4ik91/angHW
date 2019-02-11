@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class NewsItemComponent implements OnInit {
 
   @Input() article: any;
+  @Input() articleIndex: number;
 
   public isLocal: boolean;
   public date: string;

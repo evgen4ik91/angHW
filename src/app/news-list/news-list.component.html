@@ -1,7 +1,9 @@
+<app-filter></app-filter>
 <div class="container">
   <div class="news-list__container">
     <app-news-item
       *ngFor="let article of newsListToShow; let i = index"
+      [articleIndex]="i"
       [article]="article"
     ></app-news-item>
   </div>

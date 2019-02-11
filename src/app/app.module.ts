@@ -13,6 +13,8 @@ import { LocalNewsSelectorComponent } from './local-news-selector/local-news-sel
 import { AddArticleComponent } from './add-article/add-article.component';
 import { NewsItemComponent } from './news-item/news-item.component';
 import { MoreBtnComponent } from './more-btn/more-btn.component';
+import { EditArticleComponent } from './edit-article/edit-article.component';
+import { ArticlePageComponent } from './article-page/article-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { MoreBtnComponent } from './more-btn/more-btn.component';
     LocalNewsSelectorComponent,
     AddArticleComponent,
     NewsItemComponent,
-    MoreBtnComponent
+    MoreBtnComponent,
+    EditArticleComponent,
+    ArticlePageComponent
   ],
   imports: [
     BrowserModule,
