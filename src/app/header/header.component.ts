@@ -4,8 +4,7 @@ import { NewsSourceService } from "../src-list/src-list.service";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  providers: [NewsSourceService]
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
@@ -14,7 +13,9 @@ export class HeaderComponent implements OnInit {
   constructor(private srcService: NewsSourceService) {}
 
   ngOnInit() {
-    this.srcService.currentSource.subscribe(src => this.srcTitle = src.name);
+    this.srcService.currentSource.subscribe(src => {
+      this.srcTitle = src.name;
+    });
   }
 
 }

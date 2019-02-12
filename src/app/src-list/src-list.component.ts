@@ -5,8 +5,7 @@ import { NewsSourceService } from "./src-list.service";
 @Component({
   selector: 'app-src-list',
   templateUrl: './src-list.component.html',
-  styleUrls: ['./src-list.component.scss'],
-  providers: [NewsSourceService]
+  styleUrls: ['./src-list.component.scss']
 })
 
 export class SrcListComponent implements OnInit {
