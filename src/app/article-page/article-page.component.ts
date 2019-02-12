@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NewsListService } from "../news-list/news-list.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-article-page',
@@ -8,12 +10,22 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ArticlePageComponent implements OnInit {
 
-  public articleID: string;
+  public articleObj: any;
+  private date: any;
 
-  constructor(private route: ActivatedRoute) { }
+  listSubscription: Subscription;
+
+  constructor(private route: ActivatedRoute, private listService: NewsListService) { }
 
   ngOnInit() {
-    this.articleID = this.route.snapshot.params['id'];
+    this.listSubscription = this.listService.currentList.subscribe(list => {
+      this.articleObj = list[this.route.snapshot.params['id'] - 1];
+      if (this.articleObj) this.date = new Date(this.articleObj.publishedAt);
+      else console.log('article not found');
+    });
+  }
+  ngOnDestroy() {
+    this.listSubscription.unsubscribe();
   }
 
 }
