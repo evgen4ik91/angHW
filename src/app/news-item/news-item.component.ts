@@ -11,14 +11,13 @@ export class NewsItemComponent implements OnInit {
   @Input() articleIndex: number;
 
   public isLocal: boolean;
-  public date: string;
+  public date: any;
 
   constructor() {
   }
 
   ngOnInit() {
-    let date = new Date(this.article.publishedAt);
-    this.date = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    this.date = new Date(this.article.publishedAt);
     this.isLocal = this.article.isLocal ? true : false;
   }
 

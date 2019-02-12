@@ -1,10 +1,19 @@
-<div class="container">
-  <img src="" alt="article" class="article-page__img" />
-  <h1 class="article-page__title"></h1>
-  <p class="article-page__text"></p>
-  <p class="article-page__author"></p>
-  <p class="article-page__date"></p>
-  <div class="article-page__controls">
+<div class="container article-page__container" *ngIf="articleObj">
+  <img 
+    *ngIf="articleObj.urlToImage"
+    class="article-page__img"
+    src="{{articleObj.urlToImage}}"
+    alt="article"  
+  />
+  <h1 class="article-page__title">{{articleObj.title}}</h1>
+  <p class="article-page__descr" *ngIf="articleObj.description">{{articleObj.description}}</p>
+  <p class="article-page__text" *ngIf="articleObj.content">{{articleObj.content}}</p>
+  <p class="article-page__author" *ngIf="articleObj.author">{{articleObj.author}}</p>
+  <p class="article-page__date" *ngIf="articleObj.publishedAt">{{date | date:"dd.MM.yyyy hh:mm"}}</p>
+  <div class="article-page__controls" *ngIf="articleObj.isLocal">
     
   </div>
+</div>
+<div class="container" *ngIf="!articleObj">
+  <h3 class="article-page__not-found">Article not found</h3>
 </div>
