@@ -6,5 +6,6 @@
   <option
     *ngFor="let src of srcList; let i = index"
     value={{src.id}}
+    [attr.selected]="i == srcIndex  ? true : null"
   >{{src.name}}</option>
 </select>

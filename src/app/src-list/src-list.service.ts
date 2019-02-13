@@ -6,13 +6,20 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NewsSourceService {
 
-  private newsSource = new BehaviorSubject({name: 'ABC news', id: 'abc-news'});
+  private newsSource = new BehaviorSubject(0);
   currentSource = this.newsSource.asObservable();
+
+  private sourceListSource = new BehaviorSubject([]);
+  sourceList = this.sourceListSource.asObservable();
 
   constructor() { }
 
-  changeNewsSource(src: any) {
-    this.newsSource.next(src);
+  changeNewsSource(srcIndex: number) {
+    this.newsSource.next(srcIndex);
+  }
+
+  setSourceList(list: Array<string>) {
+    this.sourceListSource.next(list);
   }
 
 }

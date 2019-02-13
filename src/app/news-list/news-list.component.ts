@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Fetcher } from '../fetcher';
-import { NewsSourceService } from "../src-list/src-list.service";
-import { NewsListService } from "../news-list/news-list.service";
+import { NewsSourceService } from '../src-list/src-list.service';
+import { NewsListService } from '../news-list/news-list.service';
 import { Subscription } from 'rxjs';
+import { ArticleInterface, SourceInterface } from '../interface';
 
 @Component({
   selector: 'app-news-list',
@@ -11,14 +12,18 @@ import { Subscription } from 'rxjs';
 })
 export class NewsListComponent implements OnInit {
   private fetcher: any;
-  public newsList: Array<string>;
+  public newsList: Array<ArticleInterface>;
   public newsListLength: number;
-  public newsListToShow: Array<string>;
+  public newsListToShow: Array<ArticleInterface>;
   public showedNewsCount = 0;
   public defaultShowedNewsCount = 5;
   public allNewsShowed = true;
+  public currentSrcIndex: number;
+  public sourceList: Array<SourceInterface>;
 
-  srcSubscription: Subscription;
+  
+  srcIndexSubscription: Subscription;
+  srcListSubscription: Subscription;
   listSubscription: Subscription;
 
   constructor(private srcService: NewsSourceService, private listService: NewsListService) {
@@ -35,17 +40,17 @@ export class NewsListComponent implements OnInit {
     this.newsListToShow = this.newsList.slice(0, this.showedNewsCount);
   }
 
-  resetNewsCount() {
+  resetNewsCount(): void {
     this.showedNewsCount = 0;
     this.allNewsShowed = true;
   }
 
-  showMoreNews() {
+  showMoreNews(): void {
     this.showedNewsCount += this.defaultShowedNewsCount;
     this.moreBtnController();
   }
 
-  getNews(srcID) {
+  getNews(srcID: string): void {
     this.resetNewsCount();
     this.fetcher.fetchData(srcID)
       .then(newsList => {
@@ -58,13 +63,17 @@ export class NewsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.srcSubscription = this.srcService.currentSource.subscribe(src => this.getNews(src.id));
+    this.srcListSubscription = this.srcService.sourceList.subscribe(list => this.sourceList = list);
     this.listSubscription = this.listService.currentList.subscribe(list => this.newsList = list);
+    
+    this.srcIndexSubscription = this.srcService.currentSource.subscribe(srcIndex => {
+      if (this.sourceList.length) this.getNews(this.sourceList[srcIndex].id);
+    });
   }
   ngOnDestroy() {
-    this.srcSubscription.unsubscribe();
+    this.srcIndexSubscription.unsubscribe();
+    this.srcListSubscription.unsubscribe();
     this.listSubscription.unsubscribe();
   }
-
 
 }
