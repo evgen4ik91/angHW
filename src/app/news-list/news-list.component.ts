@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Fetcher } from '../fetcher';
 import { NewsSourceService } from '../src-list/src-list.service';
-import { NewsListService } from '../news-list/news-list.service';
-import { Subscription } from 'rxjs';
+import { NewsListService } from './news-list.service';
+
 import { ArticleInterface, SourceInterface } from '../interface';
 
 @Component({
@@ -14,7 +15,6 @@ export class NewsListComponent implements OnInit {
   private fetcher: any;
   public newsList: Array<ArticleInterface>;
   public newsListLength: number;
-  public newsListToShow: Array<ArticleInterface>;
   public showedNewsCount = 0;
   public defaultShowedNewsCount = 5;
   public allNewsShowed = true;
@@ -37,7 +37,6 @@ export class NewsListComponent implements OnInit {
       this.showedNewsCount = this.newsListLength;
       this.allNewsShowed = true;
     }
-    this.newsListToShow = this.newsList.slice(0, this.showedNewsCount);
   }
 
   resetNewsCount(): void {

@@ -2,7 +2,7 @@
 <div class="container">
   <div class="news-list__container">
     <app-news-item
-      *ngFor="let article of newsListToShow; let i = index"
+      *ngFor="let i = index; let article of newsList | moreArticles : showedNewsCount"
       [articleIndex]="i"
       [article]="article"
     ></app-news-item>

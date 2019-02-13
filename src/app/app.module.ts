@@ -15,6 +15,7 @@ import { NewsItemComponent } from './news-item/news-item.component';
 import { MoreBtnComponent } from './more-btn/more-btn.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
+import { ArticlesMorePipe, ArticlesFilterPipe, ArticlesLocalPipe } from './news-list/news-list.pipes';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,10 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     NewsItemComponent,
     MoreBtnComponent,
     EditArticleComponent,
-    ArticlePageComponent
+    ArticlePageComponent,
+    ArticlesMorePipe,
+    ArticlesFilterPipe, 
+    ArticlesLocalPipe
   ],
   imports: [
     BrowserModule,
