@@ -19,7 +19,7 @@ export class ArticlePageComponent implements OnInit {
 
   ngOnInit() {
     this.listSubscription = this.listService.currentList.subscribe(list => {
-      this.articleObj = list[this.route.snapshot.params['id'] - 1];
+      this.articleObj = list.find(article => article.id === parseInt(this.route.snapshot.params['id']));
       if (this.articleObj) this.date = new Date(this.articleObj.publishedAt);
       else console.log('article not found');
     });

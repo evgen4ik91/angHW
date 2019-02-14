@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Fetcher } from '../fetcher';
 import { NewsSourceService } from '../src-list/src-list.service';
 import { NewsListService } from './news-list.service';
+import { FilterNewsService } from '../filter-news/filter-news.service';
 
 import { ArticleInterface, SourceInterface } from '../interface';
 
@@ -14,22 +15,27 @@ import { ArticleInterface, SourceInterface } from '../interface';
 export class NewsListComponent implements OnInit {
   private fetcher: any;
   private shouldReload: boolean;
+  private filterString: string;
   public newsList: Array<ArticleInterface>;
   public newsListLength: number;
   public showedNewsCount: number;
-  public defaultShowedNewsCount = 2;
+  public defaultShowedNewsCount = 3;
   public allNewsShowed = true;
   public currentSrcIndex: number;
   public sourceList: Array<SourceInterface>;
-
   
   srcIndexSubscription: Subscription;
   srcListSubscription: Subscription;
   shouldReloadSubscription: Subscription;
   listSubscription: Subscription;
   countSubscription: Subscription;
+  filterSubscription: Subscription;
 
-  constructor(private srcService: NewsSourceService, private listService: NewsListService) {
+  constructor(
+      private srcService: NewsSourceService,
+      private listService: NewsListService,
+      private filterService: FilterNewsService
+    ) {
     this.fetcher = new Fetcher('news');
   }
 
@@ -48,8 +54,8 @@ export class NewsListComponent implements OnInit {
     this.allNewsShowed = true;
   }
 
-  showMoreNews(): void {
-    this.listService.updateNewsCount(this.showedNewsCount + this.defaultShowedNewsCount);
+  showMoreNews(all: boolean = false): void {
+    this.listService.updateNewsCount(all ? this.newsListLength : this.showedNewsCount + this.defaultShowedNewsCount);
     this.moreBtnController();
   }
 
@@ -57,7 +63,13 @@ export class NewsListComponent implements OnInit {
     this.resetNewsCount();
     this.fetcher.fetchData(srcID)
       .then(newsList => {
-        this.listService.updateNewsListSource(newsList);
+        let updateWithID = newsList.map((article, i) => {
+          let obj = article;
+          obj.id = i + 1;
+          return obj;
+        });
+        this.listService.updateNewsListSource(updateWithID);
+
         this.showMoreNews();
         this.srcService.setShouldReloadNews(false);
       })
@@ -72,18 +84,24 @@ export class NewsListComponent implements OnInit {
       this.newsListLength = list.length;
     });
     this.countSubscription = this.listService.currentCount.subscribe(cnt => this.showedNewsCount = cnt);
+    this.filterSubscription = this.filterService.filterString.subscribe(str => {
+      this.filterString = str;
+      if (this.filterString.length) this.showMoreNews(true);
+    });
     
     this.srcIndexSubscription = this.srcService.currentSource.subscribe(srcIndex => {
       if (this.shouldReload) this.getNews(this.sourceList[srcIndex].id);
       else this.moreBtnController();
     });
   }
+  
   ngOnDestroy() {
     this.srcIndexSubscription.unsubscribe();
     this.srcListSubscription.unsubscribe();
     this.shouldReloadSubscription.unsubscribe();
     this.listSubscription.unsubscribe();
     this.countSubscription.unsubscribe();
+    this.filterSubscription.unsubscribe();
   }
 
 }

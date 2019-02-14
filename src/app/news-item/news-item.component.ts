@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ArticleInterface } from '../interface';
 
 @Component({
   selector: 'app-news-item',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NewsItemComponent implements OnInit {
 
-  @Input() article: any;
+  @Input() article: ArticleInterface;
   @Input() articleIndex: number;
 
   public isLocal: boolean;

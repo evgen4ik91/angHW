@@ -1,11 +1,11 @@
 <div class="row nowrap">
   <div class="col article__img-col">
-    <a [routerLink]="['/article', articleIndex + 1]">
+    <a [routerLink]="['/article', this.article.id]">
       <img class="article__img" src="{{this.article.urlToImage}}" alt="angNEWS" *ngIf="this.article.urlToImage"/>
     </a>
   </div>
   <div class="col article__content-col">
-    <h4 class="article__title"><a [routerLink]="['/article', articleIndex + 1]">{{this.article.title}}</a></h4>
+    <h4 class="article__title"><a [routerLink]="['/article', this.article.id]">{{this.article.title}}</a></h4>
     <p class="article__short-text">{{this.article.description}}</p>
     <p class="article__date">{{date | date:"dd.MM.yyyy hh:mm"}}</p>
   </div>

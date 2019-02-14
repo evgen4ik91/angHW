@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Fetcher } from '../fetcher';
 import { NewsSourceService } from "./src-list.service";
-import { Subscription } from 'rxjs';
+import { FilterNewsService } from '../filter-news/filter-news.service';
+
 
 @Component({
   selector: 'app-src-list',
@@ -18,11 +20,12 @@ export class SrcListComponent implements OnInit {
   sourceListSubscription: Subscription;
   sourceIndexSubscription: Subscription;
 
-  constructor(private srcService: NewsSourceService) {
+  constructor(private srcService: NewsSourceService, private filterService: FilterNewsService) {
     this.fetcher = new Fetcher('src');
   }
 
   setCurrentSrc($event) {
+    if ($event) this.filterService.updateNewsListSource('');
     this.srcService.setShouldReloadNews(true);
     this.srcService.changeNewsSource($event ? $event.target.selectedIndex : 0);
   }

@@ -10,9 +10,10 @@ export interface SourceInterface {
 
 export interface ArticleInterface {
     title: string;
-    id: string;
+    id ?: number;
     publishedAt: string;
     url: string;
     urlToImage: string;
     author: string;
+    isLocal ?: boolean;
 }

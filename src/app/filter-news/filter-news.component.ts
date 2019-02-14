@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { FilterNewsService } from './filter-news.service';
 
 @Component({
   selector: 'app-filter-news',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilterNewsComponent implements OnInit {
 
-  constructor() { }
+  public filterString: string;
+  filterStringSubscribe: Subscription;
+
+  constructor(private filterService: FilterNewsService) { }
+
+  updateFilterString($event) {
+    let inpEl = $event.target;
+    this.filterService.updateNewsListSource(inpEl.value);
+  }
 
   ngOnInit() {
+    this.filterStringSubscribe = this.filterService.filterString.subscribe(str => this.filterString = str);
+  }
+
+  ngOnDestroy() {
+    this.filterStringSubscribe.unsubscribe();
   }
 
 }

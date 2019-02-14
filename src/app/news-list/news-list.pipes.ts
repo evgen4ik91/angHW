@@ -12,7 +12,7 @@ export class ArticlesMorePipe implements PipeTransform {
 @Injectable()
 export class ArticlesFilterPipe implements PipeTransform {
   transform(newsList, filterStr: string): any {
-    
+    return newsList.filter(article => article.title.toLowerCase().includes(filterStr.toLowerCase()));
   }
 }
 

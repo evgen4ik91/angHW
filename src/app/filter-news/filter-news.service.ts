@@ -6,13 +6,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class FilterNewsService {
 
-  private newsListSource = new BehaviorSubject([]);
-  currentList = this.newsListSource.asObservable();
+  private filterStringSource = new BehaviorSubject('');
+  filterString = this.filterStringSource.asObservable();
 
   constructor() { }
 
-  updateNewsListSource(newsList: any) {
-    this.newsListSource.next(newsList);
+  updateNewsListSource(str: string) {
+    this.filterStringSource.next(str);
   }
 
 }
