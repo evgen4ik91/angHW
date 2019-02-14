@@ -13,6 +13,7 @@ import { ArticleInterface, SourceInterface } from '../interface';
 })
 export class NewsListComponent implements OnInit {
   private fetcher: any;
+  private shouldReload: boolean;
   public newsList: Array<ArticleInterface>;
   public newsListLength: number;
   public showedNewsCount = 0;
@@ -24,7 +25,9 @@ export class NewsListComponent implements OnInit {
   
   srcIndexSubscription: Subscription;
   srcListSubscription: Subscription;
+  shouldReloadSubscription: Subscription;
   listSubscription: Subscription;
+  countSubscription: Subscription;
 
   constructor(private srcService: NewsSourceService, private listService: NewsListService) {
     this.fetcher = new Fetcher('news');
@@ -34,7 +37,7 @@ export class NewsListComponent implements OnInit {
     if (this.showedNewsCount < this.newsListLength) {
       this.allNewsShowed = false;
     } else {
-      this.showedNewsCount = this.newsListLength;
+      this.listService.updateNewsCount(this.newsListLength);
       this.allNewsShowed = true;
     }
   }
@@ -45,7 +48,7 @@ export class NewsListComponent implements OnInit {
   }
 
   showMoreNews(): void {
-    this.showedNewsCount += this.defaultShowedNewsCount;
+    this.listService.updateNewsCount(this.showedNewsCount + this.defaultShowedNewsCount);
     this.moreBtnController();
   }
 
@@ -57,21 +60,25 @@ export class NewsListComponent implements OnInit {
         this.newsList = newsList;
         this.newsListLength = newsList.length;
         this.showMoreNews();
+        this.srcService.setShouldReloadNews(false);
       })
       .catch(() => console.log('Nothing to show'));
   }
 
   ngOnInit() {
     this.srcListSubscription = this.srcService.sourceList.subscribe(list => this.sourceList = list);
+    this.shouldReloadSubscription = this.srcService.shouldReloadNews.subscribe(val => this.shouldReload = val);
     this.listSubscription = this.listService.currentList.subscribe(list => this.newsList = list);
+    this.countSubscription = this.listService.currentCount.subscribe(cnt => this.showedNewsCount = cnt);
     
     this.srcIndexSubscription = this.srcService.currentSource.subscribe(srcIndex => {
-      if (this.sourceList.length) this.getNews(this.sourceList[srcIndex].id);
+      if (this.shouldReload) this.getNews(this.sourceList[srcIndex].id);
     });
   }
   ngOnDestroy() {
     this.srcIndexSubscription.unsubscribe();
     this.srcListSubscription.unsubscribe();
+    this.shouldReloadSubscription.unsubscribe();
     this.listSubscription.unsubscribe();
   }
 

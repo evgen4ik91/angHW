@@ -12,6 +12,9 @@ export class NewsSourceService {
   private sourceListSource = new BehaviorSubject([]);
   sourceList = this.sourceListSource.asObservable();
 
+  private shouldReloadNewsSource = new BehaviorSubject(false);
+  shouldReloadNews = this.shouldReloadNewsSource.asObservable();
+
   constructor() { }
 
   changeNewsSource(srcIndex: number) {
@@ -20,6 +23,10 @@ export class NewsSourceService {
 
   setSourceList(list: Array<string>) {
     this.sourceListSource.next(list);
+  }
+
+  setShouldReloadNews(val: boolean) {
+    this.shouldReloadNewsSource.next(val);
   }
 
 }

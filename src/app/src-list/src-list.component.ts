@@ -23,6 +23,7 @@ export class SrcListComponent implements OnInit {
   }
 
   setCurrentSrc($event) {
+    this.srcService.setShouldReloadNews(true);
     this.srcService.changeNewsSource($event ? $event.target.selectedIndex : 0);
   }
   
