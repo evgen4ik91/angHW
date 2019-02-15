@@ -3,13 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { NewsListComponent } from './news-list/news-list.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
-import { EditArticleComponent } from './edit-article/edit-article.component';
+import { EditPageFormComponent } from './edit-page/edit-page-form/edit-page-form.component';
 
 const routes: Routes = [
   {path: '', component: NewsListComponent},
   {path: 'article/:id', component: ArticlePageComponent},
-  {path: 'add', component: EditArticleComponent},
-  {path: 'edit/:id', component: EditArticleComponent}
+  {path: 'add', component: EditPageFormComponent},
+  {path: 'edit/:id', component: EditPageFormComponent}
 ];
 
 @NgModule({

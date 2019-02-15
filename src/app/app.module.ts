@@ -13,9 +13,11 @@ import { LocalNewsSelectorComponent } from './local-news-selector/local-news-sel
 import { AddArticleComponent } from './add-article/add-article.component';
 import { NewsItemComponent } from './news-item/news-item.component';
 import { MoreBtnComponent } from './more-btn/more-btn.component';
-import { EditArticleComponent } from './edit-article/edit-article.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
 import { ArticlesMorePipe, ArticlesFilterPipe, ArticlesLocalPipe } from './news-list/news-list.pipes';
+
+//modules
+import { EditPageModule } from './edit-page/edit-page.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,6 @@ import { ArticlesMorePipe, ArticlesFilterPipe, ArticlesLocalPipe } from './news-
     AddArticleComponent,
     NewsItemComponent,
     MoreBtnComponent,
-    EditArticleComponent,
     ArticlePageComponent,
     ArticlesMorePipe,
     ArticlesFilterPipe, 
@@ -38,7 +39,8 @@ import { ArticlesMorePipe, ArticlesFilterPipe, ArticlesLocalPipe } from './news-
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    EditPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
