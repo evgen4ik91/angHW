@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { HeaderTitleService } from "../../header/header.service";
 
 @Component({
   selector: 'app-edit-page-form',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditPageFormComponent implements OnInit {
 
-  constructor() { }
+  private editMode: boolean = false;
+
+  constructor(private route: ActivatedRoute, private headerService: HeaderTitleService) { }
 
   ngOnInit() {
+    if (this.route.snapshot.params.id) this.editMode = true;
+    this.headerService.setTitle(`${this.editMode ? 'Edit' : 'Add'} article`);
+    if (this.editMode) {
+     
+    } else {
+
+    }
   }
 
 }

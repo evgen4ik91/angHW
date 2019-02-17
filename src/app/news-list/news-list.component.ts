@@ -53,14 +53,14 @@ export class NewsListComponent implements OnInit {
     }
   }
 
-  resetNewsCount(): void {
-    this.listService.updateNewsCount(0);
-    this.allNewsShowed = true;
-  }
-
   showMoreNews(all: boolean = false): void {
     this.listService.updateNewsCount(all ? this.newsListLength : this.showedNewsCount + this.defaultShowedNewsCount);
     this.moreBtnController();
+  }
+
+  resetNewsCount(): void {
+    this.listService.updateNewsCount(0);
+    this.allNewsShowed = true;
   }
 
   removeArticle(artIndex) {
@@ -100,7 +100,6 @@ export class NewsListComponent implements OnInit {
       this.showOnlyLocal = state;
       if (state) this.showMoreNews(true);
     });
-    
     this.srcIndexSubscription = this.srcService.currentSource.subscribe(srcIndex => {
       if (this.shouldReload) this.getNews(this.sourceList[srcIndex].id);
       else this.moreBtnController();
