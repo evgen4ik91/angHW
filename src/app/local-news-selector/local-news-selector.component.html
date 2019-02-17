@@ -1,2 +1,2 @@
-<input class="local__checkbox" type="checkbox" id="local-news" />
+<input class="local__checkbox" type="checkbox" id="local-news" (change)="checkboxHandler($event)" [checked]="checkboxEnabled" />
 <label class="local__label" for="local-news">Created by me</label>

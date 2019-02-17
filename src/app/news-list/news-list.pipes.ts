@@ -19,7 +19,8 @@ export class ArticlesFilterPipe implements PipeTransform {
 @Pipe({name: 'articlesLocal'})
 @Injectable()
 export class ArticlesLocalPipe implements PipeTransform {
-  transform(value: string, args: string[]): any {
-    
+  transform(newsList, usePipe: boolean): any {
+    if (usePipe) return newsList.filter(article => article.isLocal !== undefined);
+    else return newsList;
   }
 }

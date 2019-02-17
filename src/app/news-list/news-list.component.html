@@ -2,9 +2,10 @@
 <div class="container">
   <div class="news-list__container">
     <app-news-item
-      *ngFor="let i = index; let article of newsList | articlesFilter : filterString | moreArticles : showedNewsCount"
+      *ngFor="let i = index; let article of newsList | articlesLocal : showOnlyLocal | articlesFilter : filterString | moreArticles : showedNewsCount"
       [articleIndex]="i"
       [article]="article"
+      (removeArticle)="removeArticle($event)"
     ></app-news-item>
   </div>
   <app-more-btn (clickEvent)="showMoreNews()" *ngIf="!allNewsShowed"></app-more-btn>

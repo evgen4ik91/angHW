@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NewsSourceService } from '../src-list/src-list.service';
-import { SourceInterface } from '../interface';
+import { HeaderTitleService } from './header.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +9,14 @@ import { SourceInterface } from '../interface';
 })
 export class HeaderComponent implements OnInit {
 
-  title: string;
-  sourceList: Array<SourceInterface>;
+  private title;
 
-  constructor(private srcService: NewsSourceService) {}
+  headerSubscription: Subscription;
+
+  constructor(private headerService: HeaderTitleService) {}
 
   ngOnInit() {
-    this.srcService.sourceList.subscribe(list => this.sourceList = list);
-    this.srcService.currentSource.subscribe(srcIndex => {
-      if (this.sourceList.length) this.title = this.sourceList[srcIndex].name;
-    });
+    this.headerSubscription = this.headerService.title.subscribe(title => this.title = title);
   }
 
 }

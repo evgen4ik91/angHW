@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ArticleInterface } from '../interface';
 
 @Component({
@@ -11,10 +11,16 @@ export class NewsItemComponent implements OnInit {
   @Input() article: ArticleInterface;
   @Input() articleIndex: number;
 
+  @Output() removeArticle = new EventEmitter<number>();
+
   public isLocal: boolean;
   public date: any;
 
   constructor() {
+  }
+
+  removeItself(artIndex: number) {
+    this.removeArticle.emit(artIndex);
   }
 
   ngOnInit() {

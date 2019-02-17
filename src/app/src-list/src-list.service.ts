@@ -15,6 +15,9 @@ export class NewsSourceService {
   private shouldReloadNewsSource = new BehaviorSubject(false);
   shouldReloadNews = this.shouldReloadNewsSource.asObservable();
 
+  private disableSourceSelectorSource = new BehaviorSubject(false);
+  sourceSelectorDisabled = this.disableSourceSelectorSource.asObservable();
+
   constructor() { }
 
   changeNewsSource(srcIndex: number) {
@@ -27,6 +30,10 @@ export class NewsSourceService {
 
   setShouldReloadNews(val: boolean) {
     this.shouldReloadNewsSource.next(val);
+  }
+
+  disableSourceSelector(val: boolean) {
+    this.disableSourceSelectorSource.next(val);
   }
 
 }
