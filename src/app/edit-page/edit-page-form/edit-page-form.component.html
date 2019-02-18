@@ -43,7 +43,7 @@
         </label>
         <input id="source-inp" class="styled-inp" type="text" name="url" [formControl]="sourceUrlControl" />
 
-        <input type="submit" value="Submit" class="btn-ui" [attr.disabled]="articleFormGroup.valid ? null : ''" />
+        <input type="submit" value="Submit" class="btn-ui" (click)="submitForm($event)" [attr.disabled]="articleFormGroup.valid ? null : ''" />
       </div>
     </form>
   </div>

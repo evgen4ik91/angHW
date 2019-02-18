@@ -6,7 +6,6 @@ import { NewsListService } from './news-list.service';
 import { FilterNewsService } from '../filter-news/filter-news.service';
 
 import { ArticleInterface, SourceInterface } from '../interface';
-import localNews from '../localNews';
 
 @Component({
   selector: 'app-news-list',
@@ -18,8 +17,9 @@ export class NewsListComponent implements OnInit {
   private shouldReload: boolean;
   private filterString: string;
   private showOnlyLocal: boolean;
-  public newsList: Array<ArticleInterface>;
+  public newsList: Array<ArticleInterface> = [];
   public newsListLength: number;
+  public localNewsLength: number;
   public showedNewsCount: number;
   public defaultShowedNewsCount = 3;
   public allNewsShowed = true;
@@ -33,6 +33,7 @@ export class NewsListComponent implements OnInit {
   listSubscription: Subscription;
   countSubscription: Subscription;
   filterSubscription: Subscription;
+  localNewsLengthSubscription: Subscription;
   
 
   constructor(
@@ -64,24 +65,33 @@ export class NewsListComponent implements OnInit {
   }
 
   removeArticle(artIndex) {
-    this.listService.updateNewsListSource(this.newsList.filter(article => article.id !== artIndex));
+    this.listService.removeArticle(artIndex).then(res => {
+      console.log('article removed');
+      this.listService.updateNewsListSource(this.newsList.filter(article => article.id !== artIndex));
+    })
+    
   }
 
   getNews(srcID: string): void {
     this.resetNewsCount();
-    this.fetcher.fetchData(srcID)
-      .then(newsList => {
-        let updateWithID = [...localNews, ...newsList].map((article, i) => {
-          let obj = article;
-          obj.id = i + 1;
-          return obj;
-        });
-        this.listService.updateNewsListSource(updateWithID);
+    
+    
+    this.listService.getLocalNews().then(localNews => {
+      this.fetcher.fetchData(srcID)
+        .then(newsList => {
+          this.listService.updateLocalNewsCount(localNews.length);
+          let updateWithID = newsList.map((article, i) => {
+            let obj = article;
+            obj.id = i + 1 + this.localNewsLength;
+            return obj;
+          });
+          this.listService.updateNewsListSource([...localNews, ...updateWithID]);
 
-        this.showMoreNews();
-        this.srcService.setShouldReloadNews(false);
-      })
-      .catch(() => console.log('Nothing to show'));
+          this.showMoreNews();
+          this.srcService.setShouldReloadNews(false);
+        })
+        .catch(() => console.log('Nothing to show'));
+    }) 
   }
 
   ngOnInit() {
@@ -89,9 +99,10 @@ export class NewsListComponent implements OnInit {
     this.shouldReloadSubscription = this.srcService.shouldReloadNews.subscribe(val => this.shouldReload = val);
     this.listSubscription = this.listService.currentList.subscribe(list => {
       this.newsList = list;
-      this.newsListLength = list.length + localNews.length;
+      this.newsListLength = list.length;
     });
     this.countSubscription = this.listService.currentCount.subscribe(cnt => this.showedNewsCount = cnt);
+    this.localNewsLengthSubscription = this.listService.localNewsLength.subscribe(cnt => this.localNewsLength = cnt);
     this.filterSubscription = this.filterService.filterString.subscribe(str => {
       this.filterString = str;
       if (this.filterString.length) this.showMoreNews(true);
