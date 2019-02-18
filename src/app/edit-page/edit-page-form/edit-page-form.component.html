@@ -1,33 +1,50 @@
-<div class="container">
-  <div class="row">
-    <div class="col edit-article__col">
-      <label for="heading-inp">Heading</label>
-      <input id="heading-inp" class="styled-inp" type="text" value="" name="heading" />
+<div class="edit-article">
+  <div class="container">
+    <form class="row" [formGroup]="articleFormGroup">
+      <div class="col edit-article__col">
+        <label for="heading-inp">Heading
+          <span class="styled-inp__invalid" *ngIf="headingControl.errors?.required">Required</span>
+        </label>
+        <input id="heading-inp" class="styled-inp" type="text" name="heading" [formControl]="headingControl" />
 
-      <label for="descr-inp">Short description</label>
-      <input id="descr-inp" class="styled-inp" type="text" value="" name="heading" />
+        <label for="descr-inp">Short description
+          <span class="styled-inp__invalid" *ngIf="descriptionControl.errors?.required">Required</span>
+        </label>
+        <input id="descr-inp" class="styled-inp" type="text" name="description" [formControl]="descriptionControl" />
 
-      <label for="content-inp">Content</label>
-      <textarea id="content-inp" class="styled-inp" value="" name="heading"></textarea>
-    </div>
-    <div class="col edit-article__col">
-      <label for="file-inp" class="styled-inp__label">Image</label> 
-      <input id="image-type-url" class="radio-btn" type="radio" name="image-type" value="url" checked/>
-      <label for="image-type-url" class="styled-inp__label">URL</label>
-      <input id="image-type-file" class="radio-btn" type="radio" name="image-type" value="file"/>
-      <label for="image-type-file">File</label>
-      <input id="file-inp" class="styled-inp" type="text" value="" name="heading" />
+        <label for="content-inp">Content
+          <span class="styled-inp__invalid" *ngIf="contentControl.errors?.required">Required</span>
+        </label>
+        <textarea id="content-inp" class="styled-inp" name="content" [formControl]="contentControl"></textarea>
+      </div>
+      <div class="col edit-article__col">
+        <label for="file-inp" class="styled-inp__label">Image
+          <span class="styled-inp__invalid" *ngIf="imgControl.errors?.required">Required</span>
+        </label> 
+        <input id="image-type-url" class="radio-btn" type="radio" name="image-type" value="url" checked/>
+        <label for="image-type-url" class="styled-inp__label">URL</label>
+        <input id="image-type-file" class="radio-btn" type="radio" name="image-type" value="file"/>
+        <label for="image-type-file">File</label>
+        
+        <input id="file-inp" class="styled-inp" type="text" name="img" [formControl]="imgControl" />
 
-      <label for="date-inp">Date</label>
-      <input id="date-inp" class="styled-inp" type="text" value="" name="heading" />
+        <label for="date-inp">Date
+          <span class="styled-inp__invalid" *ngIf="dateControl.errors?.required">Required</span>
+        </label>
+        <input id="date-inp" class="styled-inp" type="text" name="date" [formControl]="dateControl" />
 
-      <label for="author-inp">Author</label>
-      <input id="author-inp" class="styled-inp" type="text" value="" name="heading" />
+        <label for="author-inp">Author
+          <span class="styled-inp__invalid" *ngIf="authorControl.errors?.required">Required</span>
+        </label>
+        <input id="author-inp" class="styled-inp" type="text" name="author" [formControl]="authorControl" />
 
-      <label for="source-inp">Source URL</label>
-      <input id="source-inp" class="styled-inp" type="text" value="" name="heading" />
+        <label for="source-inp">Source URL
+          <span class="styled-inp__invalid" *ngIf="sourceUrlControl.errors?.required">Required</span>
+        </label>
+        <input id="source-inp" class="styled-inp" type="text" name="url" [formControl]="sourceUrlControl" />
 
-      <input type="submit" value="Submit" />
-    </div>
+        <input type="submit" value="Submit" class="btn-ui" [attr.disabled]="articleFormGroup.valid ? null : ''" />
+      </div>
+    </form>
   </div>
 </div>

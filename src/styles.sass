@@ -41,6 +41,10 @@ body
     &__label
         display: inline-block
         margin-right: 10px
+    &__invalid
+        margin-left: 10px
+        font-size: 14px
+        color: #f00
 
 .radio-btn
     display: inline-block
@@ -64,3 +68,6 @@ body
             border-color: #f00
             background-color: #f00
             color: #fff
+    &:disabled
+        opacity: .4
+        pointer-events: none
