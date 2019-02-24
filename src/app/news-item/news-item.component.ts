@@ -24,8 +24,10 @@ export class NewsItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.date = new Date(this.article.publishedAt);
-    this.isLocal = this.article.isLocal ? true : false;
+    if (this.article) {
+      this.date = new Date(this.article.publishedAt);
+      this.isLocal = this.article.isLocal ? true : false;
+    } 
   }
 
 }
