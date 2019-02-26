@@ -10,7 +10,7 @@ export class Fetcher {
 		return `https://newsapi.org/v2/${this.type === 'src' ? 'sources?' : `top-headlines?sources=${srcID}&`}apiKey=${this.apiKey}`;
 	}
 
-	async fetchData(src: string) {
+	async fetchData(src: string = '') {
 		try {
 			let response: any = await fetch(this.queryConstructor(src));
 			if (response.ok) {
