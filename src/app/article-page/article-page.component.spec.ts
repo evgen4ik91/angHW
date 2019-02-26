@@ -26,4 +26,8 @@ describe('ArticlePageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should view "ARTICLE NOT FOUND"', () => {
+    expect(component.articleObj).toBeUndefined();
+  });
 });
