@@ -28,6 +28,7 @@ describe('ArticlePageComponent', () => {
   });
 
   it('should view "ARTICLE NOT FOUND"', () => {
-    expect(component.articleObj).toBeUndefined();
+    expect(fixture.nativeElement.outerText).toEqual('Article not found');
   });
+
 });
